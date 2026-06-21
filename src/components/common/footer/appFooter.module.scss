@@ -1,0 +1,210 @@
+@use '../../../style/variable' as *;
+@use 'sass:color';
+
+.footer {
+  padding: $space-6 $space-4;
+  margin-top: auto;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background-color: $color-secondary;
+  color: $color-primary;
+  border-radius: 24px 24px 0 0;
+  border: 1px solid rgba($color-primary, 0.08);
+  border-bottom: none;
+  box-shadow: 0 -8px 24px rgba($color-primary, 0.04);
+  text-align: left;
+
+  @include respond-to(md) {
+    padding: $space-7 $space-5;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  @include respond-to(sm) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(md) {
+    grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+    gap: $space-4;
+  }
+}
+
+.brandColumn {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin-bottom: $space-4;
+
+  @include respond-to(md) {
+    margin-bottom: 0;
+    padding-right: $space-4;
+  }
+}
+
+.logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.brandTagline {
+  font-family: $font-family-base;
+  color: rgba($color-primary, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.sectionTitle {
+  font-family: $font-family-base;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: $space-2 !important;
+  color: $color-primary;
+  opacity: 0.85;
+}
+
+.sectionLink {
+  display: inline-block;
+  color: rgba($color-primary, 0.7) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all $transition-base !important;
+  cursor: pointer;
+  width: fit-content;
+  font-family: $font-family-base;
+
+  &:hover {
+    color: $color-accent !important;
+    transform: translateX(4px);
+  }
+}
+
+.subscribeSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  width: 100%;
+}
+
+.subscribeDescription {
+  font-family: $font-family-base;
+  color: rgba($color-primary, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.subscribeForm {
+  display: flex;
+  align-items: center;
+  background-color: rgba($color-white, 0.75);
+  border: 1px solid rgba($color-primary, 0.12);
+  border-radius: 99px;
+  padding: 4px;
+  margin-top: $space-2;
+  transition: border-color $transition-base, box-shadow $transition-base;
+  width: 100%;
+
+  &:focus-within {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.15);
+    background-color: $color-white;
+  }
+}
+
+.emailInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: $space-2 $space-3;
+  font-family: $font-family-base;
+  font-size: 0.85rem;
+  color: $color-primary;
+  outline: none;
+  width: 100%;
+
+  &::placeholder {
+    color: rgba($color-primary, 0.45);
+  }
+}
+
+.subscribeButton {
+  border-radius: 99px !important;
+  padding: 6px 18px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  height: 34px;
+  white-space: nowrap;
+  box-shadow: none !important;
+}
+
+.divider {
+  margin: $space-6 0 $space-4 0 !important;
+  border-color: rgba($color-primary, 0.08) !important;
+}
+
+.bottomBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+  }
+}
+
+.copyright {
+  font-family: $font-family-base;
+  font-size: 0.85rem !important;
+  color: rgba($color-primary, 0.6) !important;
+}
+
+.socialIcons {
+  display: flex;
+  gap: $space-2;
+}
+
+.socialIconButton {
+  color: rgba($color-primary, 0.6) !important;
+  background-color: rgba($color-white, 0.6) !important;
+  border: 1px solid rgba($color-primary, 0.08) !important;
+  transition: all $transition-base !important;
+  padding: 8px !important;
+
+  &:hover {
+    color: $color-white !important;
+    background-color: $color-accent !important;
+    border-color: $color-accent !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($color-accent, 0.2);
+  }
+}

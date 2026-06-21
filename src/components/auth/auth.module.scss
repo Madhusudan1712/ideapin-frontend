@@ -1,0 +1,208 @@
+@use '../../style/variable' as *;
+@use 'sass:color';
+
+.container {
+    min-height: calc(100vh - 380px);
+    
+    @media (max-height: 880px) {
+        min-height: 500px;
+    }
+
+    background: radial-gradient(circle at 50% 50%, $color-background 0%, color.mix($color-background, $color-secondary, 65%) 100%);
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: $space-5 $space-4;
+
+    @include respond-to(md) {
+        padding: $space-7 $space-5;
+    }
+}
+
+// ============================================
+// Decorative Background Shapes
+// ============================================
+.decor {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.decorShape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    will-change: transform;
+
+    &.shape1 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(135deg, $color-accent 0%, color.adjust($color-accent, $lightness: 20%) 100%);
+        top: -80px;
+        right: -60px;
+        filter: blur(60px);
+
+        @include respond-to(md) {
+            width: 450px;
+            height: 450px;
+            top: -120px;
+            right: -100px;
+        }
+    }
+
+    &.shape2 {
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+        bottom: -50px;
+        left: -50px;
+        filter: blur(50px);
+
+        @include respond-to(md) {
+            width: 400px;
+            height: 400px;
+            left: -100px;
+            bottom: -100px;
+        }
+    }
+}
+
+.content {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    will-change: transform, opacity;
+}
+
+.title {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    color: $color-primary;
+    margin-bottom: $space-2 !important;
+    text-align: center;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include respond-to(md) {
+        font-size: 3rem !important;
+    }
+}
+
+.subtitle {
+    font-size: 1.125rem !important;
+    color: $color-muted;
+    margin-bottom: $space-6 !important;
+    text-align: center;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+}
+
+.socialCard {
+    border: 1px solid $color-border !important;
+    border-radius: $radius-lg !important;
+    overflow: hidden;
+    background: $color-surface !important;
+    box-shadow: $shadow-md !important;
+    will-change: transform, box-shadow;
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    &:hover {
+        box-shadow: 0 12px 30px rgba($color-black, 0.08) !important;
+    }
+}
+
+.header {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $space-5;
+    cursor: pointer;
+    background-color: rgba($color-secondary, 0.15);
+    border-bottom: 1px solid $color-border;
+    transition: background-color $transition-base;
+
+    &:hover {
+        background-color: rgba($color-secondary, 0.3);
+    }
+}
+
+.headerTitle {
+    font-size: 1.05rem !important;
+    font-weight: 600 !important;
+    color: $color-primary;
+}
+
+.socialItem {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 $space-5;
+    cursor: pointer;
+    background-color: $color-surface;
+    position: relative;
+    z-index: 1;
+    transition: background-color $transition-base, transform $transition-fast, box-shadow $transition-fast;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($color-black, 0.05);
+        z-index: 2;
+    }
+
+    // Specific brand hover styles
+    &.google:hover {
+        background-color: rgba(66, 133, 244, 0.05);
+        .socialText { color: #4285F4; }
+    }
+    &.facebook:hover {
+        background-color: rgba(24, 119, 242, 0.05);
+        .socialText { color: #1877F2; }
+    }
+    &.microsoft:hover {
+        background-color: rgba(242, 80, 34, 0.05);
+        .socialText { color: #f25022; }
+    }
+    &.github:hover {
+        background-color: rgba(36, 41, 47, 0.05);
+        .socialText { color: #24292f; }
+    }
+    &.linkedin:hover {
+        background-color: rgba(10, 102, 194, 0.05);
+        .socialText { color: #0a66c2; }
+    }
+}
+
+.iconWrapper {
+    width: 48px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: transform $transition-fast;
+
+    .socialItem:hover & {
+        transform: scale(1.18);
+    }
+}
+
+.socialText {
+    font-size: 0.975rem !important;
+    color: $color-primary;
+    font-weight: 500 !important;
+    transition: color $transition-base;
+}
