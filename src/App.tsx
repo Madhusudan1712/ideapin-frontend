@@ -1,7 +1,6 @@
 import './App.css'
 import { Box } from "@mui/material";
 import AppRoutes from "./app/AppRoutes";
-import AppFooter from "./components/common/footer/AppFooter";
 
 function App() {
   return (
@@ -12,12 +11,11 @@ function App() {
         minHeight: '100vh',
       }}
     >
-      <Box component="main" sx={{ flex: 1 }}>
+      <Box component="main" sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <AppRoutes />
       </Box>
-      <AppFooter />
     </Box>
   )
 }
 
-export default App
+export default App;
