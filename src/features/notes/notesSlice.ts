@@ -27,7 +27,27 @@ const initialState: NotesState = {
 const notesSlice = createSlice({
   name: 'notes',
   initialState,
-  reducers: {},
+  reducers: {
+    setNotes: (state, action) => {
+      state.items = action.payload;
+    },
+    addLocalNote: (state, action) => {
+      state.items.unshift(action.payload);
+    },
+    updateLocalNote: (state, action) => {
+      const index = state.items.findIndex((n) => n._id === action.payload._id);
+      if (index !== -1) {
+        state.items[index] = {
+          ...state.items[index],
+          ...action.payload,
+          updatedAt: new Date().toISOString(),
+        };
+      }
+    },
+    deleteLocalNote: (state, action) => {
+      state.items = state.items.filter((n) => n._id !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNotes.pending, (state) => {
@@ -57,4 +77,5 @@ const notesSlice = createSlice({
   },
 });
 
+export const { setNotes, addLocalNote, updateLocalNote, deleteLocalNote } = notesSlice.actions;
 export default notesSlice.reducer;

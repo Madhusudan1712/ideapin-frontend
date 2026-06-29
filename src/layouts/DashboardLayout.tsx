@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import NavBarTabs from "../components/navBarTabs/NavBarTabs";
 import SideBarTabs from "../components/sideBarTabs/SideBarTabs";
 import AppFooter from "../components/common/footer/AppFooter";
+import { useAppDispatch } from "../app/hooks";
+import { setNotes } from "../features/notes/notesSlice";
+import { syncQueue } from "../services/sync/syncQueue";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -12,6 +15,7 @@ interface DashboardLayoutProps {
  * Premium dashboard layout housing NavBarTabs, SideBarTabs, active workspaces, and AppFooter.
  */
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [collapsed, setCollapsed] = useState(false);
@@ -19,6 +23,20 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
   const handleToggle = () => {
     setCollapsed((c) => !c);
   };
+
+  // Subscribe to successful sync completions to update local state
+  useEffect(() => {
+    const unsubscribe = syncQueue.subscribe(({ updatedNotes }) => {
+      dispatch(setNotes(updatedNotes));
+    });
+
+    // Trigger initial sync flush on load if internet is available
+    if (navigator.onLine) {
+      syncQueue.flush().catch((err) => console.error("Initial sync flush failed:", err));
+    }
+
+    return unsubscribe;
+  }, [dispatch]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", width: "100%", boxSizing: "border-box" }}>
